@@ -4,7 +4,7 @@ const Discord = require('discord.io')
 /* Koa server for waking up the bot */
 const Koa = require('koa')
 const app = new Koa()
-const PORT = process.env.port || 3000 
+const PORT = process.env.PORT || 3000 
 
 app.use(ctx => {
   ctx.body = 'https://www.youtube.com/watch?v=I_izvAbhExY'
