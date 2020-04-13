@@ -22,7 +22,7 @@ const bot = new Discord.Client({
 const keys = obj => Object.keys(obj)
 const toArray = obj => keys(obj).map(key => obj[key])
 
-const generateTimeMessage = () => {
+const checkTime = () => {
   const now = new Date()
   const [hours, minutes] = [now.getHours(), now.getMinutes()]
   const message = `${hours}:${minutes}`
@@ -32,7 +32,6 @@ const generateTimeMessage = () => {
 /* THIS BOT IS MEANT TO REPLACE CHRIS */
 bot.on('ready', event => {
   console.log('Connected to Discord')
-  console.log(generateTimeMessage())
   const { servers } = bot
   const boiz = toArray(servers).find(({ name }) => name === 'Boiz')
   const boizId = boiz.id
@@ -41,10 +40,8 @@ bot.on('ready', event => {
 
   const to = chatRoom['id']
   setInterval(() => {
-    const message = generateTimeMessage()
-
-    if (message === '13:37' && !msgSent) {
-      bot.sendMessage({ to, message })
+    if (checkTime() === '11:37' && !msgSent) {
+      bot.sendMessage({ to, message: '13:37' })
     }
 
   }, 55000)
