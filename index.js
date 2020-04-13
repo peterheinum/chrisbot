@@ -40,7 +40,7 @@ bot.on('ready', event => {
 
   const to = chatRoom['id']
   setInterval(() => {
-    if (checkTime() === '11:37' && !msgSent) {
+    if (checkTime() === '11:37') {
       bot.sendMessage({ to, message: '13:37' })
     }
 
