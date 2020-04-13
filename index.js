@@ -4,12 +4,12 @@ const Discord = require('discord.io')
 /* Koa server for waking up the bot */
 const Koa = require('koa')
 const app = new Koa()
-const PORT = process.env.PORT || 3000 
+const PORT = process.env.PORT || 3000
 
 app.use(ctx => {
   ctx.body = 'https://www.youtube.com/watch?v=I_izvAbhExY'
 })
- 
+
 app.listen(PORT)
 console.log(`Koa open on ${PORT}`)
 
@@ -22,9 +22,17 @@ const bot = new Discord.Client({
 const keys = obj => Object.keys(obj)
 const toArray = obj => keys(obj).map(key => obj[key])
 
+const generateTimeMessage = () => {
+  const now = new Date()
+  const [hours, minutes] = [now.getHours(), now.getMinutes()]
+  const message = `${hours}:${minutes}`
+  return message
+}
+
 /* THIS BOT IS MEANT TO REPLACE CHRIS */
 bot.on('ready', event => {
   console.log('Connected to Discord')
+  console.log(generateTimeMessage())
   const { servers } = bot
   const boiz = toArray(servers).find(({ name }) => name === 'Boiz')
   const boizId = boiz.id
@@ -33,11 +41,9 @@ bot.on('ready', event => {
 
   const to = chatRoom['id']
   setInterval(() => {
-    const now = new Date()
-    const [hours, minutes] = [now.getHours(), now.getMinutes()]
-    const message = `${hours}:${minutes}`
-  
-    if(message === '13:37' && !msgSent) {
+    const message = generateTimeMessage()
+
+    if (message === '13:37' && !msgSent) {
       bot.sendMessage({ to, message })
     }
 
