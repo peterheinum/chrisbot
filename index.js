@@ -33,7 +33,7 @@ bot.on('ready', event => {
   const chatRoom = toArray(bot.channels).find(x => x.guild_id === boizId)
   const to = chatRoom['id']
  
-  schedule.scheduleJob({hour: 13, minute: 37}, function(){
+  schedule.scheduleJob({hour: 11, minute: 37}, () => {
     bot.sendMessage({ to, message: '13:37' })
   })
 })
