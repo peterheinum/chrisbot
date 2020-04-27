@@ -1,5 +1,6 @@
 require('dotenv').config()
 const Discord = require('discord.io')
+const schedule = require('node-schedule');
 
 /* Koa server for waking up the bot */
 const Koa = require('koa')
@@ -22,13 +23,6 @@ const bot = new Discord.Client({
 const keys = obj => Object.keys(obj)
 const toArray = obj => keys(obj).map(key => obj[key])
 
-const checkTime = () => {
-  const now = new Date()
-  const [hours, minutes] = [now.getHours(), now.getMinutes()]
-  const message = `${hours}:${minutes}`
-  return message
-}
-
 /* THIS BOT IS MEANT TO REPLACE CHRIS */
 bot.on('ready', event => {
   console.log('Connected to Discord')
@@ -37,12 +31,9 @@ bot.on('ready', event => {
   const boizId = boiz.id
 
   const chatRoom = toArray(bot.channels).find(x => x.guild_id === boizId)
-
   const to = chatRoom['id']
-  setInterval(() => {
-    if (checkTime() === '11:37') {
-      bot.sendMessage({ to, message: '13:37' })
-    }
-
-  }, 55000)
+ 
+  schedule.scheduleJob({hour: 13, minute: 37}, function(){
+    bot.sendMessage({ to, message: '13:37' })
+  })
 })
