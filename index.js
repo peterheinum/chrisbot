@@ -36,4 +36,20 @@ bot.on('ready', event => {
   schedule.scheduleJob({hour: 11, minute: 37}, () => {
     bot.sendMessage({ to, message: '13:37' })
   })
+
+  const funFacts = [
+    'Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still edible.',
+    'Octopuses have three hearts, nine brains, and blue blood.',
+    'Bananas are berries, but strawberries are not.',
+    'A group of flamingos is called a "flamboyance".',
+    'Sharks existed before trees.',
+    'The Eiffel Tower can grow more than 15 cm taller during the summer due to thermal expansion.',
+    'Wombat poop is cube-shaped.',
+    'There are more possible games of chess than atoms in the observable universe.'
+  ]
+
+  schedule.scheduleJob({hour: 7, minute: 0}, () => {
+    const fact = funFacts[Math.floor(Math.random() * funFacts.length)]
+    bot.sendMessage({ to, message: `Fun fact: ${fact}` })
+  })
 })
